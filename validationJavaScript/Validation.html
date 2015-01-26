@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>HTML5 Пример валидации на CSS3</title>
+<link rel="stylesheet" media="screen" href="styles.css" >
+<script type="text/javascript">
+function validateForm(form){
+var flagName=validateName (form.name);
+var flagEmail=validateEmail (form.email);
+var flagWebsite=validateSite (form.website);
+var flagMessage=validateMessage (form.message);
+
+return flagName&&flagEmail&&flagWebsite&&flagMessage;
+}
+
+function validateName (name){
+if (name.value=='')
+	{
+		document.getElementById("nameError").innerHTML="Поле обязятельно для заполнения.";
+		return false;
+	}
+else
+	{
+		document.getElementById("nameError").innerHTML="";
+		return true;
+	}
+}
+
+function validateEmail (email){
+if (email.value=="")
+	{
+		document.getElementById("emailError").innerHTML="Поле обязятельно для заполнения.";
+		return false;
+	}
+else
+	{
+	if (!(/^[a-zA-Z0-9\-_\.]+@[a-zA-Z0-9\-_]+\.[a-zA-Z]{2,4}$/).test(email.value))
+		{
+			document.getElementById("emailError").innerHTML="Введите email в формате name@adress.com.";
+			return false;
+		}
+	else
+		{
+			document.getElementById("emailError").innerHTML="";
+			return true;
+		}
+	}
+}
+
+function validateSite (website){
+if (website.value=="")
+	{
+		document.getElementById("siteError").innerHTML="Поле обязятельно для заполнения.";
+		return false;
+	}
+else{
+	if (!(/^(http|https)\:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]{2,4}$/).test(website.value))
+		{
+			document.getElementById("siteError").innerHTML="Формат ввода: http://somesite.com";
+			return false;
+		}
+	else
+		{
+			document.getElementById("siteError").innerHTML="";
+			return true;
+		}
+	}
+}
+
+function validateMessage (message){
+if (message.value=='')
+	{
+		document.getElementById("messageError").innerHTML="Поле обязятельно для заполнения.";
+		return false;
+	}
+else
+	{
+		document.getElementById("messageError").innerHTML="";
+		return true;
+	}
+}
+</script>
+</head>
+<body>
+<form class="contact_form" action="" method="post" name="contact_form" onsubmit="return validateForm(this)"><!--action=""-validates but don't sent to server-->
+
+<ul>
+	<li>
+		<h2>Свяжитесь с нами</h2>
+		<span class="required_notification">*обозначены обязятельные для заполнения поля</span>
+	</li>
+	<li>
+		<label for="name">Имя:</label>
+		<input type="text" name="name" placeholder="Вася Пупкин" onblur="validateName(this)"/>
+		<span id="nameError"></span>
+	</li>
+	<li>
+		<label for="email">Email:</label>
+		<input type="text" name="email" placeholder="name@something.com" onblur="validateEmail(this)"/>
+		<span id="emailError"></span>
+	</li>
+	<li>
+		<label for="website">Сайт:</label>
+		<input type="text" name="website" placeholder="http://somesite.com/" onblur="validateSite(this)"/>
+		<span id="siteError"></span>
+
+	</li>
+	<li>
+		<label for="message">Текст сообщения:</label>
+		<textarea name="message" cols="40" rows="6" onblur="validateMessage(this)" ></textarea>
+		<span id="messageError"></span>
+	</li>
+	<li>
+		<label></label>
+		<button class="submit" type="submit">Отправить</button>
+	</li>
+</ul>
+
+</form>
+
+
+
+
+
+</body>
+</html>
